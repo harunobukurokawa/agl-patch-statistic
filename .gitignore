@@ -1,4 +1,6 @@
 .repo
 AGL/*
 apps/*
+src/*
+staging/*
 *.log
