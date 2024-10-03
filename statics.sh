@@ -45,4 +45,4 @@ done
 
 # 標準出力
 cd $TOP
-cat $SHORTLOG_FILE |  awk '{arry[$NF] += $1;} END{for(i in arry){print arry[i] " " i}}' | sort -n
+cat $SHORTLOG_FILE |  awk '{arry[$NF] += $1;} END{for(i in arry){print arry[i] " " i}}' | sort -nr
