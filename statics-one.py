@@ -39,17 +39,18 @@ def get_commit_count(repo_dir, year):
 
 	return func_result
 
-def counting_commiter(commiters_raw):
+def counting_commiter(commiters_raw, year):
 	df = pandas.DataFrame(commiters_raw , columns=['Auther', 'commits', 'line'])
 	df['commits'] = df['commits'].astype(int)
 	df['line'] = df['line'].astype(int)
 	commits = df.groupby('Auther')['commits'].sum()
 	lines = df.groupby('Auther')['line'].sum()
-	print("Num of commits by Auther\n")
-	print(commits.sort_values(ascending=False))
-	print("\n")
-	print("Num of commit lines by Auther\n")
-	print(lines.sort_values(ascending=False))
+	commits = commits.sort_values(ascending=False)
+	lines = lines.sort_values(ascending=False)
+
+	cur_dir = os.getcwd()
+	commits.to_csv(cur_dir + "/commits-" + year + ".csv", header=False)
+	lines.to_csv(cur_dir + "/lines-" + year + ".csv", header=False)
 
 	return commiters_raw
 
@@ -78,7 +79,7 @@ def main():
 					#if len(commt_lists) > 0:
 						commiters_raw.append(commt_list)
 
-	counting_commiter(commiters_raw)
+	counting_commiter(commiters_raw, year)
 
 if __name__ == "__main__":
 	main()
